@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "PruebaAjax";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="margin-top:80px">PruebaAjax</h2>
+
+<p>Aqui se mostrara texto que viene del server al presionar un botón</p>
+<button id="btnSolicitar">Solicitar</button><span id="Mensaje"> </span>
+
+<ul id="listaCarreras">
+</ul>
+
+@section Scripts {
+    <script>
+        $("#btnSolicitar").click(function () {
+            $.ajax({
+                url: "/Alumno/EntregarDatos",
+                contentType: "application/html; charset=utf-8",
+                type: "GET",
+                dataType: "html",
+            }).success(function (result) {
+                $("#listaCarreras").html("");
+                result = jQuery.parseJSON(result);
+                /*for (var indice in result) {
+                    $("#listaCarreras").append("<li style='display:none'>" + result[indice].nombre + "</li>");
+                    $("#listaCarreras li").last().delay(500 * indice).animate({ width: 'toggle' }, 1000);
+                }*/
+                $("#listaCarreras").append("<li style='display:none'>" + result + "</li>");
+                $("#listaCarreras li").last().fadeIn(500);
+
+            }).error(function (xhr, status) {
+                alert("Hubo una bronca compa");
+            })
+        })
+    </script>
+}
+

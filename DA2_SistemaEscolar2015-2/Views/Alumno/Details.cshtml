@@ -1,0 +1,36 @@
+﻿@model DA2_SistemaEscolar2015.Models.VMAlumno
+
+@{
+    ViewBag.Title = "Details";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Alumno</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @Html.HiddenFor(model => model.noMatricula)
+        <dt>
+            @Html.DisplayNameFor(model => model.nombreGrupo)
+        </dt>
+
+        <dd id="@Html.DisplayNameFor(model => model.nombreGrupo)">
+            @Html.DisplayFor(model => model.nombreGrupo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaNac)
+        </dt>
+
+        <dd id="@Html.DisplayNameFor(model => model.fechaNac)">
+            @Html.DisplayFor(model => model.fechaNac)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.noMatricula }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

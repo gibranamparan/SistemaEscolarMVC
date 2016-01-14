@@ -1,0 +1,65 @@
+﻿@model DA2_SistemaEscolar2015.Models.Alumno
+
+@{
+    ViewBag.Title = "Delete";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Alumno</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.grupo.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.grupo.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.apellidoP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.apellidoP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.apellidoM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.apellidoM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaNac)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaNac)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,92 @@
+﻿@model IEnumerable<DA2_SistemaEscolar2015.Models.Alumno>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DA2_SistemaEscolar2015.Models.Alumno nuevoAlumno = new DA2_SistemaEscolar2015.Models.Alumno();
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<!-- Trigger the modal with a button -->
+<button type="button" class="" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">                
+                <!-- VISTA DE CREACION DE ALUMNOS-->
+                @Html.Partial("Create", nuevoAlumno)
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@using (Html.BeginForm(null,null,FormMethod.Get)) {
+    <input type="text" name="strBuscado" value="" placeholder="Buscar Alumno"/>
+    <button>Buscar</button>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.grupo.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apellidoP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apellidoM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaNac)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.grupo.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apellidoP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apellidoM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaNac)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.noMatricula }) |
+            @Html.ActionLink("Details", "Details", new { id=item.noMatricula }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.noMatricula })
+        </td>
+    </tr>
+}
+
+</table>

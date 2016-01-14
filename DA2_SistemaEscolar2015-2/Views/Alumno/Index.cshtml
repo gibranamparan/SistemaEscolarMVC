@@ -1,0 +1,150 @@
+﻿@model IEnumerable<DA2_SistemaEscolar2015.Models.Alumno>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DA2_SistemaEscolar2015.Models.Alumno nuevoAlumno = new DA2_SistemaEscolar2015.Models.Alumno();
+    DA2_SistemaEscolar2015.Models.VMAlumno vmAlumno = new DA2_SistemaEscolar2015.Models.VMAlumno(nuevoAlumno);
+}
+
+<h2>Index</h2>
+
+<!-- Trigger the modal with a button -->
+<a data-toggle="modal" data-target="#modalAlta">Nuevo Alumno</a>
+
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    <input type="text" name="strBuscado" value="" placeholder="Buscar Alumno" />
+    <button>Buscar</button>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.grupo.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apellidoP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.apellidoM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaNac)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+           <!--<td>
+                @Html.RadioButton("seleccion", item.noMatricula)
+            </td>--> 
+            <td>
+                @Html.DisplayFor(modelItem => item.grupo.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.apellidoP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.apellidoM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaNac)
+            </td>
+            <td>
+                <a id="enlaceDetalles" data-toggle="modal" data-target="#modalDetalles" nomatricula="@item.noMatricula">Detalles</a> |
+                <a id="enlaceBorrar" data-toggle="modal" data-target="#modalBorrar" nomatricula="@item.noMatricula">Borrar</a> |
+                <a id="enlaceEditar" data-toggle="modal" data-target="#modalEditar" nomatricula="@item.noMatricula">Editar</a> 
+            </td>
+        </tr>
+    }
+</table>
+
+<div id="modalDetalles" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Detalles</h4>
+            </div>
+            <div class="modal-body">                
+                <!-- VISTA DE DETALLES DE ALUMNO-->
+                @*Html.Partial("Details", vmAlumno)*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalBorrar" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Eliminar</h4>
+            </div>
+            <div class="modal-body">
+                @*Html.Partial("Delete", vmAlumno)*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalEditar" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modificar</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("Edit", nuevoAlumno)
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalAlta" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Registro de Nuevo Alumno</h4>
+            </div>
+            <div class="modal-body">
+                <!-- VISTA DE CREACION DE ALUMNOS-->
+                @Html.Partial("Create", nuevoAlumno)
+                <p>Modal para crear un nuevp aliumno</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div><!-- Modal -->
+
