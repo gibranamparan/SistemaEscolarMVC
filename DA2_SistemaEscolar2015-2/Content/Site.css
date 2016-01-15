@@ -40,3 +40,15 @@ textarea {
 table{
     margin:1em 1em;
 }
+
+div#mensaje {
+    position: absolute;
+    top: 25%;
+    left: 0;
+    opacity: .75;
+    width:96%;
+    margin: 0 2em;
+    padding: 1em 20%;
+    font-size: 2em;
+    text-align: center;
+}

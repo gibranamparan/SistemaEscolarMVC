@@ -16,6 +16,8 @@ namespace DA2_SistemaEscolar2015.Models
             
         public String apellidoP { get; set; }
         public String apellidoM { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime fechaNac { get; set; }
 
         public int grupoID { get; set; }//Llave foranea
@@ -31,7 +33,8 @@ namespace DA2_SistemaEscolar2015.Models
 
         public String apellidoP { get; set; }
         public String apellidoM { get; set; }
-        public DateTime fechaNac { get; set; }
+
+        public String fechaNac { get; set; }
 
         public int grupoID { get; set; }
         public String nombreGrupo { get; set; }
@@ -42,7 +45,7 @@ namespace DA2_SistemaEscolar2015.Models
             this.nombre = alumno.nombre;
             this.apellidoM = alumno.apellidoM;
             this.apellidoP = alumno.apellidoP;
-            this.fechaNac = alumno.fechaNac;
+            this.fechaNac = alumno.fechaNac.ToString();
             this.grupoID = alumno.grupoID;
 
             if(alumno.grupo != null)

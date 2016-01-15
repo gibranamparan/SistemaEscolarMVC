@@ -74,6 +74,19 @@ namespace DA2_SistemaEscolar2015_2.Controllers
             return Json(vmAlumno, JsonRequestBehavior.AllowGet);
         }
 
+        // GET: Alumno/Details/5
+        [HttpPost]
+        [Authorize(Roles = "Administrador, Capturista")]
+        public JsonResult AjaxDetails(Alumno alumno)
+        {
+            db.Entry(alumno).State = EntityState.Modified;
+            db.SaveChanges();
+
+            VMAlumno vmAlumno = new VMAlumno(alumno);
+
+            return Json(vmAlumno, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Alumno/Create
         [Authorize(Roles = "Administrador, Capturista")]
         public ActionResult Create()
@@ -138,7 +151,8 @@ namespace DA2_SistemaEscolar2015_2.Controllers
             return View(alumno);
         }
 
-        public JsonResult AjaxEdit(int noMatricula=0)
+        [HttpGet]
+        public JsonResult AjaxEdit(int noMatricula = 0)
         {
             /*Un objeto instanciado del modelo de datos*/
             Alumno alumno = db.alumnos.Find(noMatricula);
@@ -148,6 +162,55 @@ namespace DA2_SistemaEscolar2015_2.Controllers
 
             return Json(vmAlumno, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult AjaxEdit(Alumno alumno)
+        {
+            String mensaje = String.Empty;
+
+            try
+            {
+                db.Entry(alumno).State = EntityState.Modified;
+                int c = db.SaveChanges();
+                mensaje = "Se ha editado los datos del alumno satisfactoriamente";
+            }
+            catch(Exception exc)
+            {
+                mensaje = "Hubo un error en el servidor: "+exc.Message;
+            }
+
+
+            return Json(new { mensaje = mensaje }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+
+
+
+
+
+
+        /*
+        [HttpPost]
+        public JsonResult AjaxEdit(Alumno alumno)
+        {
+            String mensaje = String.Empty;
+            int codigo;
+            try{
+                db.Entry(alumno).State = EntityState.Modified;
+                db.SaveChanges();
+                mensaje = "Los datos del alumno han sido editados satisfactoriamente";
+                codigo = 1;
+            }
+            catch(Exception exc){
+                mensaje = "Hubo un error: "+exc.Message;
+                codigo = 0;
+            }
+
+            return Json(new { mensaje = mensaje, codigo = codigo }, JsonRequestBehavior.AllowGet);
+        }*/
 
         // GET: Alumno/Delete/5
         [Authorize(Roles = "Administrador")]
