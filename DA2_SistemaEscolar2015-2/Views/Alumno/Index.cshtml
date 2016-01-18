@@ -18,59 +18,62 @@
     <button>Buscar</button>
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.grupo.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.apellidoP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.apellidoM)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fechaNac)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table id="tablaAlumnos" class="table">
+    <thead>
         <tr>
-           <!--<td>
-                @Html.RadioButton("seleccion", item.noMatricula)
-            </td>--> 
-            <td>
-                @Html.DisplayFor(modelItem => item.grupo.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.apellidoP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.apellidoM)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fechaNac)
-            </td>
-            <td>
-                <a id="enlaceDetalles" data-toggle="modal" data-target="#modalDetalles" nomatricula="@item.noMatricula">Detalles</a> |
-                <a id="enlaceBorrar" data-toggle="modal" data-target="#modalBorrar" nomatricula="@item.noMatricula">Borrar</a> |
-                <a id="enlaceEditar" data-toggle="modal" data-target="#modalEditar" nomatricula="@item.noMatricula">Editar</a> 
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.grupo.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.apellidoP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.apellidoM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaNac)
+            </th>
+            <th></th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <!--<td>
+                     @Html.RadioButton("seleccion", item.noMatricula)
+                 </td>-->
+                <td>
+                    @Html.DisplayFor(modelItem => item.grupo.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.apellidoP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.apellidoM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fechaNac)
+                </td>
+                <td>
+                    <a id="enlaceDetalles" data-toggle="modal" data-target="#modalDetalles" nomatricula="@item.noMatricula">Detalles</a> |
+                    <a id="enlaceBorrar" data-toggle="modal" data-target="#modalBorrar" nomatricula="@item.noMatricula">Borrar</a> |
+                    <a id="enlaceEditar" data-toggle="modal" data-target="#modalEditar" nomatricula="@item.noMatricula">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
-<div id="mensaje" class="alert">
+<!--<div id="mensaje" class="alert">
 
-</div>
+</div>-->
 
 <div id="modalDetalles" class="modal fade" role="dialog">
     <div class="modal-dialog">

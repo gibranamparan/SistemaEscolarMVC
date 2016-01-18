@@ -16,9 +16,23 @@ namespace DA2_SistemaEscolar2015_2.Controllers
     {
         private Contexto db = new Contexto();
 
-        public ActionResult PruebaAjax()
+        public JsonResult AjaxIndex(String strBuscado)
         {
-            return View();
+            //var alumnos = db.alumnos.ToList();
+
+            var alumnos = from alumno in db.alumnos
+                          where alumno.nombre.Contains(strBuscado)
+                          select new { 
+                        noMatricula = alumno.noMatricula,
+                        nombre = alumno.nombre,
+                        apellidoM = alumno.apellidoM,
+                        apellidoP = alumno.apellidoP,
+                        fechaNac = alumno.fechaNac.ToString("dd/MM/yyyy"),
+                        grupoID = alumno.grupoID,
+                        grupo = alumno.grupo.nombre
+                    };
+
+            return Json(alumnos, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult EntregarDatos()
@@ -33,7 +47,29 @@ namespace DA2_SistemaEscolar2015_2.Controllers
         // GET: Alumno
         //Valor 
         [Authorize(Roles = "Administrador, Capturista")]
-        public ActionResult Index(String strBuscado="")
+        public ActionResult JsonIndex(String strBuscado = "")
+        {
+            //Se declara una lista de alumnos
+            IEnumerable<Alumno> alumnos;
+
+            //Se busca una cadena de caracteres por nombre
+            alumnos = db.alumnos.Where(algo => algo.nombre.Contains(strBuscado));
+
+            IEnumerable<VMAlumno> vmAlumnos = from alumno in db.alumnos
+                                              where alumno.nombre.Contains(strBuscado)
+                                              select new VMAlumno(alumno);
+
+            //Recursos de Vista
+            ViewBag.grupoID = new SelectList(db.grupos, "grupoID", "nombre");
+
+            //Se envia datos principales a vista
+            return View(alumnos.ToList());
+        }
+
+        // GET: Alumno
+        //Valor 
+        [Authorize(Roles = "Administrador, Capturista")]
+        public ActionResult Index(String strBuscado = "")
         {
             //Se declara una lista de alumnos
             IEnumerable<Alumno> alumnos;
@@ -160,6 +196,7 @@ namespace DA2_SistemaEscolar2015_2.Controllers
             /*Necesito una instancia del modelo de vista*/
             VMAlumno vmAlumno = new VMAlumno(alumno);
 
+            //return Json(vmAlumno, JsonRequestBehavior.AllowGet);
             return Json(vmAlumno, JsonRequestBehavior.AllowGet);
         }
 
@@ -182,14 +219,6 @@ namespace DA2_SistemaEscolar2015_2.Controllers
 
             return Json(new { mensaje = mensaje }, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
-
-
-
-
 
 
         /*

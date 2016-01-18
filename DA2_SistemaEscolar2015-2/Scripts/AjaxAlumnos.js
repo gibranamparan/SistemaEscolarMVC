@@ -1,5 +1,40 @@
 ﻿$().ready(function () {
 
+    function rellenarIndexAlumnos() {
+        var strBuscado = $("input[name='strBuscado']").val();
+        $.ajax({
+            url: "/Alumno/AjaxIndex", //Accion a ejecutar en el server
+            contentType: "application/html; charset=utf-8",
+            type: "GET",
+            dataType: "html",
+            data: { strBuscado: strBuscado } //Dato enviado al server
+        }).success(function (result) {
+            var tablaAlumnos = $("#tablaAlumnos tbody");
+            tablaAlumnos.html("");
+            var conjutoAlumnos = JSON.parse(result);
+
+            for (var indice in conjutoAlumnos) {
+                var alumno = conjutoAlumnos[indice];
+                tablaAlumnos.append("<tr>"+
+                    "<td>" + alumno.grupo + "</td>" + //Nombre grupo
+                    "<td>" + alumno.nombre + "</td>" + //nombre
+                    "<td>" + alumno.apellidoP + "</td>" + //apellidoP
+                    "<td>" + alumno.apellidoM + "</td>" + //apellidoM
+                    "<td>" + alumno.fechaNac + "</td>" + //fechaNac
+                    "<td>"+
+                    "<a id='enlaceDetalles' data-toggle='modal' data-target='#modalDetalles' nomatricula='"+alumno.noMatricula+"'>Detalles</a> |"+
+                    "<a id='enlaceBorrar' data-toggle='modal' data-target='#modalBorrar' nomatricula='"+alumno.noMatricula+"'>Borrar</a> |"+
+                    "<a id='enlaceEditar' data-toggle='modal' data-target='#modalEditar' nomatricula='"+alumno.noMatricula+"'>Editar</a> |"+
+                    "</td>" +
+                    "</tr>")
+            }
+
+        }).error(function (xhr, status) {
+
+        })
+    }
+
+
     //Abrir pantalla de Editar y mostrar datos de alumno
     $("a#enlaceEditar").click(function () {
         //Se obtiene el numero de matricula a consultar
@@ -55,8 +90,7 @@
             data: JSON.stringify(alumnoModificado),
             type: 'post',
         }).success(function (result) {
-            alert(result.mensaje);
-
+            rellenarIndexAlumnos();
         }).error(function (xhr, status) {
             alert("No se encontro el servidor,"+
                 " verifique si se encuentra conectado a internet.");
